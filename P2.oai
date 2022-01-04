@@ -1,0 +1,14 @@
+main{
+int a ;
+int b ;
+int c ;
+read >> a ;
+read >> b ;
+for ( 0 ... b ... b <= a )
+{
+c = a % b;
+a = b;
+b = c;
+}
+write << a;
+}

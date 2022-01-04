@@ -1,0 +1,15 @@
+main
+{
+int i ;
+int n ;
+int sum ;
+sum = 0 ;
+i = 0 ;
+read >> n ;
+while ( i < n )
+{
+i = i + 1 ;
+sum = sum + i ;
+}
+write << sum ;
+}

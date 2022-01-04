@@ -1,0 +1,16 @@
+main{
+int a ;
+int 25b ;
+a = 03 ;
+number ;
+read >> a ;
+read >> b ;
+if( a > b )
+{
+write << a ;
+}
+else
+{
+write << b ;
+}
+}
