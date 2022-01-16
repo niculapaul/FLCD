@@ -1,0 +1,69 @@
+INTEGER	    0|([1-9]+[0-9]*)
+FLOAT       [0-9]+[.][0-9]+
+STRING		["][^.*"]*["]
+CHARACTER	"'"[^.]"'"
+IDENTIFIER	[a-z_]([a-zA-Z_]|[0-9])*
+SEPARATOR   [()\[\]{};:,]
+OPERATOR    [\+\-*/%=<>]
+%%
+
+"&&"		printf("Reserved: %s\n", yytext );
+"||"		printf("Reserved: %s\n", yytext );
+"!"		    printf("Reserved: %s\n", yytext );
+
+"break"		printf("Reserved: %s\n", yytext );
+"continue"  printf("Reserved: %s\n", yytext );
+"pass"		printf("Reserved: %s\n", yytext );
+"do"		printf("Reserved: %s\n", yytext );
+"if"		printf("Reserved: %s\n", yytext );
+"else"		printf("Reserved: %s\n", yytext );
+"while"		printf("Reserved: %s\n", yytext );
+"return"    printf("Reserved: %s\n", yytext );
+"start"		printf("Reserved: %s\n", yytext );
+"print"		printf("Reserved: %s\n", yytext );
+"read"		printf("Reserved: %s\n", yytext );
+
+"int"       printf("Reserved: %s\n", yytext );
+"string"    printf("Reserved: %s\n", yytext );
+"float"		printf("Reserved: %s\n", yytext );
+"bool"		printf("Reserved: %s\n", yytext );
+
+"<="		printf("Reserved: %s\n", yytext );
+">="		printf("Reserved: %s\n", yytext );
+"!="		printf("Reserved: %s\n", yytext );
+"++"		printf("Reserved: %s\n", yytext );
+"--"		printf("Reserved: %s\n", yytext );
+
+
+{IDENTIFIER} printf("Identifier: %s\n", yytext);
+{INTEGER}    printf("Integer: %d\n", atoi(yytext));
+{OPERATOR}   printf("Operator: %s\n", yytext);
+{STRING}     printf("String: %s\n", yytext);
+{CHARACTER}  printf("Character %s\n", yytext);
+{SEPARATOR}  printf("Separator: %s\n", yytext);
+{FLOAT}      printf("Float: %s\n", yytext);
+
+[ \t\n]+ 	     		/* eat up whitespace */ 
+[\r\n]
+
+['][^.*"]*[']               printf("\tIllegal char length: %s\n", yytext);
+[0-9]([a-zA-Z_]|[0-9])*     printf("\tIllegal Identifier: %s\n", yytext);
+.                           printf("\tERROR: %s\n", yytext);
+
+%%
+
+int main( argc, argv )
+int argc;
+char **argv;
+    {
+        ++argv, --argc;	/* skip over program name */
+        if ( argc > 0 )
+            yyin = fopen( argv[0], "r" );
+        else
+            yyin = stdin;
+    yylex();
+    }
+
+#ifndef yywrap
+   int yywrap() { return 1; }
+#endif
